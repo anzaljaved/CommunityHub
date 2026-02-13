@@ -6,6 +6,9 @@ const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 const communityRoutes = require('./routes/community');
 const announcementRoutes = require('./routes/announcementRoutes');
+const threadRoutes = require("./routes/threadRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+
 
 const auth = require('./middleware/auth');
 
@@ -46,3 +49,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+app.use("/api/threads", threadRoutes);
+app.use("/api/threads", messageRoutes);
