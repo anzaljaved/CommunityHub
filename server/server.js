@@ -5,6 +5,7 @@ const corsMiddleware = require('./middleware/cors');
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 const communityRoutes = require('./routes/community');
+const issueRoutes = require('./routes/issueRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 
 const auth = require('./middleware/auth');
@@ -25,6 +26,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/issues', issueRoutes);
 app.use('/api/announcements', announcementRoutes);
 
 
