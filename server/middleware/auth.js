@@ -19,6 +19,7 @@ const auth = async (req, res, next) => {
     }
 
     req.user = user;
+    req.user._id = decoded.userId; // Add _id for consistency
 
     next();
   } catch (error) {

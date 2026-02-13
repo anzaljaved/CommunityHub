@@ -4,7 +4,21 @@ const path = require('path');
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads'));
+    let uploadPath = path.join(__dirname, '../uploads');
+    
+    // Use different folders based on route or field
+    if (req.baseUrl.includes('/auth') || req.route?.path?.includes('register')) {
+      uploadPath = path.join(uploadPath, 'proofs');
+    } else if (req.baseUrl.includes('/issues') || req.route?.path?.includes('issues')) {
+      uploadPath = path.join(uploadPath, 'issues');
+    } else {
+      uploadPath = path.join(uploadPath, 'general');
+    }
+    
+    // Ensure directory exists
+    require('fs').mkdirSync(uploadPath, { recursive: true });
+    
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     // Generate unique filename with timestamp
