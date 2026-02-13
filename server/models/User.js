@@ -20,7 +20,19 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['resident', 'admin', 'business'],
-    default: 'resident',
+    default: 'resident', // Will be overridden in registration logic
+  },
+  proofDocument: {
+    type: String,
+    // Not required for residents joining via invite
+  },
+  houseName: {
+    type: String,
+    trim: true,
+  },
+  houseNumber: {
+    type: String,
+    trim: true,
   },
   community: {
     type: mongoose.Schema.Types.ObjectId,

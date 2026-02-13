@@ -16,6 +16,9 @@ connectDB();
 app.use(corsMiddleware);
 app.use(express.json());
 
+// Serve uploaded files
+app.use('/uploads', express.static('uploads'));
+
 // Routes
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);

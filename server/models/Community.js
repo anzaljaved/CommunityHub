@@ -24,6 +24,12 @@ const communitySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   }],
+  inviteCode: {
+    type: String,
+    required: true,
+    unique: true,
+    uppercase: true,
+  },
 }, {
   timestamps: true,
 });

@@ -1,10 +1,13 @@
 const express = require('express');
-const { createCommunity, getCommunity, joinCommunity, getMyCommunity } = require('../controllers/communityController');
+const { createCommunity, getCommunity, joinCommunity, joinByInvite, getMyCommunity } = require('../controllers/communityController');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// All routes require authentication
+// POST /api/community/join/:inviteCode (public route for joining via invite)
+router.post('/join/:inviteCode', joinByInvite);
+
+// All other routes require authentication
 router.use(auth);
 
 // POST /api/community (create community)
