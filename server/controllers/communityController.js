@@ -28,15 +28,15 @@ const createCommunity = async (req, res) => {
       name,
       city,
       description,
-      admins: [req.user.userId],
-      members: [req.user.userId],
+      admins: [req.user._id],
+      members: [req.user._id],
       inviteCode,
     });
 
     await community.save();
 
     // Update user's community
-    await User.findByIdAndUpdate(req.user.userId, { community: community._id });
+await User.findByIdAndUpdate(req.user._id, { community: community._id });
 
     res.status(201).json({
       message: 'Community created successfully',
@@ -79,16 +79,16 @@ const joinCommunity = async (req, res) => {
     }
 
     // Check if already a member
-    if (community.members.includes(req.user.userId)) {
+    if (community.members.includes(req.user._id)) {
       return res.status(400).json({ message: 'Already a member of this community' });
     }
 
     // Add to members
-    community.members.push(req.user.userId);
+    community.members.push(req.user._id);
     await community.save();
 
     // Update user's community
-    await User.findByIdAndUpdate(req.user.userId, { community: community._id });
+    await User.findByIdAndUpdate(req.user._id, { community: community._id });
 
     res.json({ message: 'Successfully joined the community' });
   } catch (error) {
@@ -179,7 +179,7 @@ const joinByInvite = async (req, res) => {
 
 const getMyCommunity = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).populate('community');
+    const user = await User.findById(req.user._id).populate('community');
     if (!user.community) {
       return res.status(404).json({ message: 'You are not part of any community' });
     }
