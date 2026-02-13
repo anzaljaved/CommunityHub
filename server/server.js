@@ -5,6 +5,8 @@ const corsMiddleware = require('./middleware/cors');
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 const communityRoutes = require('./routes/community');
+const announcementRoutes = require('./routes/announcementRoutes');
+
 const auth = require('./middleware/auth');
 
 const app = express();
@@ -20,6 +22,8 @@ app.use(express.json());
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/announcements', announcementRoutes);
+
 
 // Protected route example
 app.get('/api/protected', auth, (req, res) => {
