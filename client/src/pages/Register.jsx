@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import "../css/Auth.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -21,77 +22,63 @@ function Register() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const data = new FormData();
-  data.append("name", formData.name);
-  data.append("email", formData.email);
-  data.append("password", formData.password);
-  data.append("proofDocument", formData.proofDocument);
+    const data = new FormData();
+    data.append("name", formData.name);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("proofDocument", formData.proofDocument);
 
-  try {
-    await registerUser(data);
-
-    // Just redirect
-    navigate("/login");
-
-  } catch (error) {
-    alert(error.response?.data?.message || "Registration failed");
-  }
-};
-
+    try {
+      await registerUser(data);
+      navigate("/login");
+    } catch (error) {
+      alert(error.response?.data?.message || "Registration failed");
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-md w-96 space-y-4"
-      >
-        <h2 className="text-2xl font-bold text-center">Register</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Register</h2>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="file"
-          name="proofDocument"
-          accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
-          onChange={handleChange}
-          required
-          className="w-full"
-        />
+          <input
+            type="file"
+            name="proofDocument"
+            accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+            onChange={handleChange}
+            required
+          />
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Register
-        </button>
-      </form>
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 }
