@@ -1,0 +1,42 @@
+.thread-detail-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f6f8;
+  padding: 20px;
+}
+
+.messages-container {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+}
+
+.message-input-form {
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto 0;
+  display: flex;
+  gap: 10px;
+}
+
+.message-input-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.message-input-form button {
+  padding: 8px 18px;
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

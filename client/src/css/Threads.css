@@ -1,0 +1,80 @@
+.threads-page {
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #f4f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.threads-page h1 {
+  margin-bottom: 20px;
+}
+
+.thread-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.thread-filters button {
+  padding: 8px 16px;
+  border: none;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.thread-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.thread-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.thread-card:hover {
+  transform: translateY(-2px);
+}
+.create-thread {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.create-thread-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-thread-form input,
+.create-thread-form textarea,
+.create-thread-form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.create-thread-form button {
+  width: fit-content;
+  padding: 8px 18px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
