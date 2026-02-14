@@ -1,4 +1,6 @@
 const Announcement = require("../models/Announcement");
+const User = require("../models/User");
+
 const createAnnouncement = async (req, res) => {
   try {
     if (req.user.role !== "admin") {
@@ -22,9 +24,37 @@ const createAnnouncement = async (req, res) => {
 
     res.status(201).json(announcement);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
+const getCommunityAnnouncements = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user || !user.community) {
+      return res.status(400).json({ message: 'User not assigned to a community' });
+    }
+
+    const now = new Date();
+    const announcements = await Announcement.find({
+      community: user.community,
+      status: 'active',
+      $or: [
+        { expiryDate: { $exists: false } },
+        { expiryDate: { $gt: now } }
+      ]
+    })
+      .populate('createdBy', 'name')
+      .sort({ isPinned: -1, createdAt: -1 });
+
+    res.json(announcements);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 const getAnnouncements = async (req, res) => {
   try {
     if (!req.user.community) {
@@ -109,6 +139,7 @@ const deleteAnnouncement = async (req, res) => {
 };
 module.exports = {
   createAnnouncement,
+  getCommunityAnnouncements,
   getAnnouncements,
   updateAnnouncement,
   deleteAnnouncement,

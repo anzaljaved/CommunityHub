@@ -41,13 +41,20 @@ const getCommunityIssues = async (req, res) => {
       return res.status(400).json({ message: 'User not assigned to a community' });
     }
 
+    const { sort } = req.query;
+    let sortOption = { createdAt: -1 }; // default sort by recent
+
+    if (sort === 'popular') {
+      sortOption = { upvotes: -1 }; // sort by upvotes count descending
+    }
+
     const issues = await Issue.find({
       community: user.community,
       type: 'community',
     })
       .populate('createdBy', 'name email')
       .populate('upvotes', 'name email')
-      .sort({ createdAt: -1 });
+      .sort(sortOption);
 
     res.json(issues);
   } catch (error) {
@@ -58,7 +65,14 @@ const getCommunityIssues = async (req, res) => {
 
 const getMyIssues = async (req, res) => {
   try {
-    const issues = await Issue.find({ createdBy: req.user._id })
+    const { type } = req.query;
+    let filter = { createdBy: req.user._id };
+
+    if (type) {
+      filter.type = type;
+    }
+
+    const issues = await Issue.find(filter)
       .populate('community', 'name')
       .sort({ createdAt: -1 });
 

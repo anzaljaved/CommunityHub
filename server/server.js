@@ -7,6 +7,8 @@ const authRoutes = require('./routes/auth');
 const communityRoutes = require('./routes/community');
 const issueRoutes = require('./routes/issueRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
+const communicationRoutes = require('./routes/communicationRoutes');
+const businessRoutes = require('./routes/businessRoutes');
 const threadRoutes = require("./routes/threadRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 
@@ -31,6 +33,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/issues', issueRoutes);
 app.use('/api/announcements', announcementRoutes);
+app.use('/api/communication', communicationRoutes);
+app.use('/api/business', businessRoutes);
 
 
 // Protected route example

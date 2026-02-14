@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     enum: ['resident', 'admin', 'business'],
     default: 'resident', // Will be overridden in registration logic
   },
+  isBusinessActive: {
+    type: Boolean,
+    default: false,
+  },
   proofDocument: {
     type: String,
     // Not required for residents joining via invite
