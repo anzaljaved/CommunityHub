@@ -96,86 +96,68 @@ const joinCommunity = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 const joinByInvite = async (req, res) => {
   try {
     const { inviteCode } = req.params;
-    const { houseName, houseNumber, members, password } = req.body;
+    const { name, email, password, houseName, houseNumber } = req.body;
 
-    // Validate input
-    if (!Array.isArray(members) || members.length === 0) {
-      return res.status(400).json({ message: 'Members array is required and cannot be empty' });
+    // Validate required fields
+    if (!name || !email || !password || !houseName || !houseNumber) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Find community by invite code
-    const community = await Community.findOne({ inviteCode: inviteCode.toUpperCase() });
+    // Find community
+    const community = await Community.findOne({
+      inviteCode: inviteCode.toUpperCase(),
+    });
+
     if (!community) {
-      return res.status(404).json({ message: 'Invalid invite code' });
+      return res.status(404).json({ message: "Invalid invite code" });
     }
 
-    // Hash password once
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const createdUsers = [];
-    const errors = [];
+    // Create resident
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role: "resident",
+      community: community._id,
+      houseName,
+      houseNumber,
+    });
 
-    // Process each member
-    for (const member of members) {
-      const { name, email } = member;
+    await user.save();
 
-      // Check if user already exists
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        errors.push({ email, error: 'User already exists' });
-        continue;
-      }
+    // Add to community members
+    community.members.push(user._id);
+    await community.save();
 
-      // Create user
-      const user = new User({
-        name,
-        email,
-        password: hashedPassword,
-        role: 'resident',
-        community: community._id,
-        houseName,
-        houseNumber,
-      });
-
-      await user.save();
-
-      // Add to community members
-      community.members.push(user._id);
-
-      createdUsers.push({
+    res.status(201).json({
+      message: "Successfully joined community",
+      user: {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-      });
-    }
-
-    // Save community with new members
-    await community.save();
-
-    if (createdUsers.length === 0) {
-      return res.status(400).json({ message: 'No users were created', errors });
-    }
-
-    res.status(201).json({
-      message: `Successfully added ${createdUsers.length} member(s) to the community`,
-      community: {
-        id: community._id,
-        name: community.name,
       },
-      createdUsers,
-      errors: errors.length > 0 ? errors : undefined,
     });
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 
 const getMyCommunity = async (req, res) => {
   try {

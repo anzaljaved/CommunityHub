@@ -5,8 +5,13 @@ import Announcements from "./pages/Announcements";
 import Threads from "./pages/Threads";
 
 import ThreadDetail from "./pages/ThreadDetail";
+import Community from "./pages/Community";
 
 
+
+import Dashboard from "./pages/Dashboard";
+
+        import JoinCommunity from "./pages/JoinCommunity";
 
 function App() {
   return (
@@ -14,6 +19,13 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
+<Route path="/join/:inviteCode" element={<JoinCommunity />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/community" element={<Community />} />
+<Route path="/community" element={<Community />} />
+
         <Route path="/announcements" element={<Announcements />} />
 <Route path="/threads" element={<Threads />} />
 <Route path="/threads/:id" element={<ThreadDetail />} />

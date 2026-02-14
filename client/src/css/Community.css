@@ -1,0 +1,51 @@
+.community-page {
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #f4f6f8;
+}
+
+.community-card {
+  max-width: 600px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.community-actions {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.join-section,
+.create-section {
+  flex: 1;
+  min-width: 300px;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.community-actions form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.community-actions input,
+.community-actions textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.community-actions button {
+  padding: 8px;
+  border: none;
+  background-color: #1e293b;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,0 +1,60 @@
+.join-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f6f8;
+}
+
+.join-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.join-card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.invite-display {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 14px;
+  color: #555;
+}
+
+.join-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.join-card input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.join-card input:focus {
+  outline: none;
+  border-color: #1e293b;
+}
+
+.join-card button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e293b;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.join-card button:hover {
+  background-color: #334155;
+}

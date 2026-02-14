@@ -21,7 +21,7 @@ function Login() {
     try {
       const res = await loginUser(formData);
       localStorage.setItem("token", res.token);
-      navigate("/threads");
+navigate("/dashboard");
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
