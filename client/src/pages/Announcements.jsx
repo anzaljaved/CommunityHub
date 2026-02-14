@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAnnouncements, createAnnouncement } from "../services/announcementService";
 import AnnouncementCard from "../components/AnnouncementCard";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import "../css/Announcements.css";
 
 function Announcements() {
