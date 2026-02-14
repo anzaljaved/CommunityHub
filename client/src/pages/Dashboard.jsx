@@ -75,14 +75,29 @@ function Dashboard() {
         <h2 className="section-title">Quick Access</h2>
 
         <div className="quick-links">
-          <div className="link-card" onClick={() => navigate("/threads")}>
-            Threads
-          </div>
+  
 
-          <div className="link-card" onClick={() => navigate("/announcements")}>
-            Announcements
-          </div>
-        </div>
+  <div
+    className="link-card"
+    onClick={() => navigate("/threads")}
+  >
+    Threads
+  </div>
+
+  <div
+    className="link-card"
+    onClick={() => navigate("/announcements")}
+  >
+    Announcements
+  </div>
+  <div
+    className="link-card"
+    onClick={() => navigate("/community")}
+  >
+    Community Code
+  </div>
+</div>
+
 
       </div>
 
