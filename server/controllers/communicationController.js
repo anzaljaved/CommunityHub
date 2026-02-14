@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 const getLatestCommunication = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
